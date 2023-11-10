@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//RU" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Flot Examples: обновления в реальном времени</title>
+    <link href="../examples.css" rel="stylesheet" type="text/css">
+	<script language="javascript" type="text/javascript" src="../../source/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="../../source/jquery.canvaswrapper.js"></script>
+	<script language="javascript" type="text/javascript" src="../../source/jquery.colorhelpers.js"></script>
+	<script language="javascript" type="text/javascript" src="../../source/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src="../../source/jquery.flot.saturated.js"></script>
+	<script language="javascript" type="text/javascript" src="../../source/jquery.flot.browser.js"></script>
+	<script language="javascript" type="text/javascript" src="../../source/jquery.flot.drawSeries.js"></script>
+	<script language="javascript" type="text/javascript" src="../../source/jquery.flot.uiConstants.js"></script>
+	<script type="text/javascript">
+
+	$(function() {
+
+		// Мы используем встроенный источник данных в примере, обычно данные
+		// быть извлеченным с сервера
+
+		var data = [],
+			totalPoints = 300;
+
+		функция getRandomData() {
+
+			if (data.length > 0)
+				data = data.slice(1);
+
+			// Сделать случайное блуждание
+
+			while (data.length < totalPoints) {
+
+				var prev = data.length > 0 ? data[data.length - 1] : 50,
+					y = prev + Math.random() * 10 - 5;
+
+				if (y < 0) {
+					y = 0;
+				} else if (y > 100) {
+					y = 100;
+				}
+
+				data.push(y);
+			}
+
+			// Zip сгенерированные значения y со значениями x
+
+			var res = [];
+			for (var i = 0; i < data.length; ++i) {
+				res.push([i, data[i]])
+			}
+
+			return res;
+		}
+
+		// Set up the control widget
+
+		var updateInterval = 30;
+		$("#UpdateInterval").val(UpdateInterval).change(function () {
+			var v = $(this).val();
+			если (v && !isNaN(+v)) {
+				UpdateInterval = +v;
+				if (UpdateInterval < 1) {
+					UpdateInterval = 1;
+				} else if (UpdateInterval > 2000) {
+					UpdateInterval = 2000;
+				}
+				$(this).val("" + UpdateInterval);
+			}
+		});
+
+		var plot = $.plot("#placeholder", [ getRandomData() ], {
+			серия: {
+                shadowSize: 0	// Рисование быстрее без теней
+			},
+			yaxis: {
+				мин: 0,
+				макс: 100
+			},
+			xaxis: {
+				show: false
+			}
+		});
+
+		 обновление функции() {
+
+			plot.setData([getRandomData()]);
+
+			// Поскольку оси не меняются, нам не нужно вызывать plot.setupGrid()
+
+			plot.draw();
+			setTimeout(обновление, UpdateInterval);
+		}
+
+		обновить();
+
+		// Добавьте строку версии Flot в нижний колонтитул
+
+		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+	});
+
+	</script>
+</head>
+<body>
+
+	<div id="header">
+		<h2>Обновления в реальном времени</h2>
+	</div>
+
+	<div id="content">
+
+		<div class="demo-container">
+			<div id="placeholder" class="demo-placeholder"></div>
+		</div>
+
+		Выможете периодически обновлять диаграмму, чтобы получить эффект в реальном времени, используя таймер для вставки новых данных в график иего перерисовки.
+
+		<p>Время между обновлениями: <input id="UpdateInterval"type="text" value= "" style="text-align: right; width:5em"> миллисекунды</p>
+
+	</div>
+
+	<div id="нижний колонтитул">
+ Copyright &copy; 2007 - 2014 ИОЛА и Оле Лаурсен
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<?php 
+	session_start();
+	header('Content-Type: text/html; charset=utf-8');
+	$mysqli = new mysqli ("localhost", "root", "", "base");
+      
+	$_add = "Add email";
+
+	if (isset($_POST['Cname'])) {
+		$_SESSION['user']['name']=$_POST['CCname'];
+		$mysqli->query("UPDATE `base`.`users` SET `name` = '".$_POST['CCname']."' WHERE `users`.`login` = '".$_SESSION['user']['login']."'");
+		
+	}
+	if (isset($_POST['Clogin'])) {
+		$_SESSION['user']['login']=$_POST['CClogin'];
+		$mysqli->query("UPDATE `base`.`users` SET `login` = '".$_POST['CClogin']."' WHERE `users`.`login` = '".$_SESSION['user']['login']."'");
+
+	}
+	if (isset($_POST['Cemail'])) {
+		$_SESSION['user']['email']=$_POST['CCemail'];
+		$mysqli->query("UPDATE `base`.`users` SET `email` = '".$_POST['CCemail']."' WHERE `users`.`login` = '".$_SESSION['user']['login']."'");
+
+	}
+	if (isset($_POST['Cpass'])) {
+		$_SESSION['user']['pass']=$_POST['CCpass'];
+	}
+
+
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,900&family=Playfair+Display&family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,900&family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+ 
+  
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	<meta charset="utf-8">
+	<title>My account</title>
+	<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+  	
+</head>
+
+
+
+
+
+<style type="text/css">
+body{
+	margin: 0;
+	height: 1000px;
+	background-color: linear-gradient(45deg,  #e3eefc, #fffdfa);
+
+}
+li {
+    list-style-type: none; /* Убираем маркеры */
+   }
+#left{
+    /*background: #e3eefc;*/
+    width: 22%;
+    height: 100%;
+    float: left;
+  }
+  
+#right{
+   background: linear-gradient(45deg,  #e3eefc, #fffdfa);
+    width: 78%;
+    height: 100%;
+    float: left;
+  }
+.now{
+  font-size: 20px;
+		padding: 5px;
+	border-bottom: 1px dotted gray;
+	box-shadow: 5px;
+}
+.LOL{
+	height: 70px;
+	border-bottom: 1px dotted black;
+}
+p{
+	width: 200px;
+}
+
+.HQN{
+	margin-left: 25px;
+	width: 20px;
+	height: 20px;
+}
+.FOX{
+	margin-top: 100px;
+}
+.ROT{
+	margin-left: 45px;
+	font-family: thin;
+}
+.ROTA{
+	margin-left: 45px;
+	margin-top: 110px;
+	font-size: 20px;
+}
+.but{
+  border-radius: 5px;
+  font-family: bold;
+  color: #0a66b7;
+  margin-top: 5px;
+  margin-left: 45px;
+  width: 110px;
+  height: 40px;
+  background-color: #f0be42;
+  box-shadow: 10px ;
+}
+.but_2{
+  border-radius: 5px;
+  font-family: bold;
+  color: #0a66b7;
+ 	margin-left: 400px;
+ 	margin-top: 35px;
+  width: 110px;
+  height: 40px;
+  background-color: #f0be42;
+  box-shadow: 10px ;
+}
+.but_3{
+  border-radius: 5px;
+  font-family: bold;
+  color: #0a66b7;
+  margin-top: 35px;
+ 	margin-left: 10px;
+  width: 110px;
+  height: 40px;
+  background-color: #f0be42;
+  box-shadow: 10px ;
+}
+.but_1{
+  border-radius: 5px;
+  font-family: bold;
+  color: #0a66b7;
+  margin-top: 5px;
+  margin-left: 25px;
+  width: 110px;
+  height: 40px;
+  background-color: #f0be42;
+  box-shadow: 10px ;
+}
+.but_13{
+  border-radius: 5px;
+  font-family: bold;
+  color: #0a66b7;
+  margin-top: 15px;
+  margin-left: 25px;
+  width: 110px;
+  height: 30px;
+  background-color: #f0be42;
+  box-shadow: 10px ;
+}
+.but_134{
+  border-radius: 5px;
+  font-family: bold;
+  color: #0a66b7;
+  margin-top: 15px;
+  margin-left: 15px;
+  width: 130px;
+  height: 30px;
+  background-color: #f0be42;
+  box-shadow: 10px ;
+}
+.but_12{
+  border-radius: 5px;
+  font-family: bold;
+  color: #0a66b7;
+
+  margin-left: 135px;
+  width: 240px;
+  height: 40px;
+  background-color: #f0be42;
+  box-shadow: 10px ;
+}
+.BOR{
+	margin-top: 20px;
+}
+.LOL_1{
+	height: 70px;
+}
+.KOK{
+	margin-top: 20px;
+	border: 1px dotted grey;
+	;
+}
+
+.JOCS{
+	margin-top: 20px;
+	margin-left: 100px;
+	width: 500px;
+	padding: 30px;
+	border: 1px dotted grey;
+}
+.JOCS_1{
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 500px;
+	padding: 30px;
+	border: 1px dotted grey;
+}
+.UHU{
+
+	margin: 20px;
+		
+}
+.UHU_1{
+	margin: 20px;	
+	
+}
+.MOL{
+	padding: 35px;
+}
+.OKO{
+	padding: 30px;
+	margin-left: -100px;
+	font-size: 25px;
+
+}
+p{
+	font-family: thin;
+}
+.UFE{
+	margin-left: 120px;
+}
+#QERT{
+	color: blue;
+
+	font-size: 25px;
+}
+.QERTY{
+	color: blue;
+	margin-left: 50px;
+	font-size: 25px;	
+}
+.TTGX{
+	padding: 13px;
+	margin-left: 1000px;
+}
+a{
+	text-decoration: none;
+}
+.RFD{
+	text-decoration: none;
+	font-size: 20px;
+}
+.LPLP{
+
+	border: 1px dotted grey;
+	width: 1320 px;
+}
+.RFGT{
+  margin-top: 55px;
+}
+.QQQ{
+	border: 1px dotted grey;
+}
+.HFD{
+	margin-left: 80px;
+}
+.NIJI{
+	font-size: 25px;
+	font-family: thin;
+}
+.ASDF{
+	border: 1px dotted grey;
+	width: 1140px;
+	
+}
+
+.IPOK{
+	border-right: 1px dotted grey;
+}
+
+.HUJIKO{
+	font-size: 25px;
+}
+.RFTGYH{
+	border-top: 1px dotted grey;
+	margin-top: 190px;
+}
+.HFD{
+	margin-top: 100px;
+}
+
+.VFVF{
+	margin-left: 80px;
+}
+.BJBJ{
+	margin-left: 80px;
+}
+.content{
+	display:none;
+	max-height: 0;
+	margin-left: 80px;
+	overflow: hidden;
+	transition: max-height 0.2s easy-out;
+}
+#div1{
+  display: none;
+}
+#div2{
+  display: none;
+}
+#div3{
+  display: none;
+}
+#div4{
+  display: none;
+}
+#div5{
+  display: none;
+}
+
+.TTTGY{
+	margin-left: 100px;
+}
+.OK{
+	margin-top: 10px;
+}
+</style>
+</head>
+ 
+<body>
+ 
+  <div id="left">
+  		<div class="HQN"><img src="7.png"></div>
+  		  		<div class="FOX">
+  			
+  			<p class="ROTA">CASH BALANCE<br> <?php echo $_SESSION['user']['balance'];?>.0 USD</p>
+  		
+  			<button class="but"><a href="deposit.php" class="nav-link">DEPOSIT</a></button>
+  				<button  class="but_1"><a href="withdraw.php" class="OPO">WITHDRAW</a></button>
+  		</div>
+  	
+	
+	
+		 	<h3 class="ROT BOR">Menu</h3>	
+     		<div align="center" class="FXA"><p align="center"><a class="nav-link now"  href="user.php">Dashboard</a></p></div>	
+  
+  		
+    		<div align="center"><p align="center"><a class="nav-link now" href="user_2.php">My Account</a></p></div>	
+    	
+       
+       
+        	 <div align="center"><p align="center"><a class="nav-link now" href="traiding.php">Tradind</a></p></div>
+       
+        
+    	<div align="center">	<p align="center"><a class="nav-link now" href="addres.php">Internal addresses</a></p></div>
+       
+		
+		<div align="center">	<p align="center"><a class="nav-link now" href="support.php">Support</a></p></div>
+
+    	<div align="center">	<p align="center"><a class="nav-link now" href="verif.php">Verification</a></p></div>
+       
+		<div align="center">	<p align="center"><a  class="nav-link now " href="secure.php">Secure Deal</a></p></div>
+		
+		<div align="center">	<p align="center"><a class="nav-link now" href="news.php">News</a></p></div>
+
+
+<br>
+
+<p align="center" class="HFD">© 2017 - 2022 <br> Все права защищены</p>
+	</div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <div id="right">
+
+<div class="LOL">
+<div class="container">
+<p class="TTGX"><a href="user_2.php" class="RFD">Personal account</a><?php echo " ".$_SESSION['user']['name'];?>
+	<a href="logout.php" class="RFD">Exit</a>
+</p>
+</div>
+</div>
+
+
+
+
+<div class="container LOL_1">
+	<div class="row">
+		<div class="col-sm-5 MOL"><p class="NIJI"><h2 align="left">My profile</h2>You have full control to manage your own account settings.</p></div>
+		<div class="col-sm-7"><button  class="but_2"><a href="deposit.php" class="nav-link">DEPOSIT</a></button><button  class="but_3"><a href="withdraw.php" class="OPO">WITHDRAW</a></button></div>
+	</div>
+</div>
+
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<form action="#" method="POST">
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-sm-4"><p class="HUJIKO BJBJ" >Full Name</p></div>
+		<div class="col-sm-4"><p class="HUJIKO" ><?=$_SESSION['user']['name']?></p></div>
+		<div class="col-sm-4">
+		<input type="button" value="Change name" onmousedown="viewDiv1()" class="but_13">
+		</div>
+	</div>
+	<div id="div1"><input type="text" name="CCname" class="TTTGY"><button type="submit" class="but_13" name="Cname">Change name</button></div>
+</div>
+
+
+
+<script type="text/javascript">
+function viewDiv1(){
+  document.getElementById("div1").style.display = "block";
+};
+function viewDiv2(){
+  document.getElementById("div2").style.display = "block";
+};
+function viewDiv3(){
+  document.getElementById("div3").style.display = "block";
+};
+function viewDiv4(){
+  document.getElementById("div4").style.display = "block";
+};
+
+</script>
+
+<div class="container ASDF OK" >	
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4"><p class="HUJIKO BJBJ" >Login</p></div>
+		<div class="col-sm-4"><p class="HUJIKO" ><?=$_SESSION['user']['login']?></p></div>
+		<div class="col-sm-4"><input type="button" value="Change login" onmousedown="viewDiv2()" class="but_13"></div>
+	</div>
+	<div id="div2"><input type="text" name="CClogin" class="TTTGY"><button type="submit" class="but_13" name="Clogin">Change login</button></div>
+</div>
+
+<div class="container ASDF OK" >	
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4"><p class="HUJIKO BJBJ" >Email</p></div>
+		<div class="col-sm-4"><p class="HUJIKO" ><?=$_SESSION['user']['email']?></p></div>
+		<div class="col-sm-4">
+		<input type="button" value="<?php echo $_add; ?>" onmousedown="viewDiv3()" class="but_13"></div>
+	</div>
+	<div id="div3"><input type="Email" name="CCemail" class="TTTGY"><button type="submit" class="but_13" name="Cemail">Change Email</button></div>
+</div>
+
+<div class="container ASDF OK" >	
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4"><p class="HUJIKO BJBJ" >Password</p></div>
+		<div class="col-sm-4"><p class="HUJIKO" >*********</p></div>
+		<div class="col-sm-4">
+			<input type="button" value="Change password" onmousedown="viewDiv4()" class="but_134">
+		</div>
+	</div>
+	<div id="div4"><input type="password" name="CCpass" class="TTTGY"><button type="submit" class="but_134" name="Cpass">Change password</button></div>
+</div>
+
+<div class="container ASDF OK" >	
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4"><p class="HUJIKO BJBJ" >Date of registration</p></div>
+		<div class="col-sm-4"><p class="HUJIKO" ><?=$_SESSION['user']['regdata']?></p></div>
+		<div class="col-sm-4"></div>
+	</div>
+
+</div>
+
+</form>
+
+
+
+<div class="container ASDF " >	
+</div>
+
+
+
+
+<div class="container">
+  <div class="row">
+      <div class="col-sm-3 YFZ RFGT">
+          <ul>
+          
+          <li class="GYU"><a class="nav-link" href="anvar.rakhmonoff@yandex.ru">anvar.rakhmonoff@yandex.ru</a></li>
+          <li class="GYU ICR"><a class="nav-link"  href="#">84 Hampton Court Rd<br> +44-20-147-59-37</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-3 YFZ RFGT">
+       
+          <ul >
+          <li class=""><a class="nav-link"  href="crypto.php">Криптовалюта</a></li>
+          <li class=""><a class="nav-link"  href="basik.php">Общие основы</a></li>
+          <li class=""><a class="nav-link"  href="before.php">Прежде чем начать</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-3 YFZ RFGT">
+          <ul>
+          <li class=""><a class="nav-link"  href="cond.php">Условия использования</a></li>
+          <li class=""><a class="nav-link"  href="conf.php">Политика конфиденциальности</a></li>
+          <li class=""><a class="nav-link"  href="conc.php">Политика безопасности</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-3 YFZ RFGT">
+        <ul list-style-type="none">
+          <li class=""><a class="nav-link"  href="about.php">О нас</a></li>
+          <li class=""><a class="nav-link"  href="cookies.php">Политика использования cookie-файлов</a></li>
+          <li class="" ><a class="nav-link"  href="vus.php">Связаться с нами</a></li>
+        </ul>
+      </div>
+  </div>
+</div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="jscript.js"></script>	
+    <script type="text/javascript" src="scriptt.js"></script>
+    <script>
+  AOS.init();
+</script>
+</body>
+</html>
